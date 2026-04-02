@@ -1,2 +1,3 @@
 # AFU-Ultimate-Premium-Edition
+![The title logo for this mod, Airframe Ultra Ultimate Premium Edition Director's Cut Deluxe 2 The Videogame Of The Movie featuring Dante from DMC and Los Pinguinos "MLVAM" & Knuckles. It's based off an edit of Airframe Ultra's logo](https://cdn.discordapp.com/attachments/1488617632587321466/1489282256974385162/image.png?ex=69cfd9af&is=69ce882f&hm=8f10aeaa2a5a3a6099a2ebef95226f1880ba810bbaa57ec190f012beacbe93d4&)
 A mod for Airframe Ultra which makes extensive changes to... pretty much everything. It's AFU Repainted if you know what that means. If you don't, its just replacing the games assets with a bunch of memes.
