@@ -3,4 +3,4 @@
 A mod for Airframe Ultra which makes extensive changes to... pretty much everything. It's AFU Repainted if you know what that means. If you don't, its just replacing the games assets with a bunch of memes.
 
 ## Instalation
-Installing is a simple drag and drop. Take the .zip file and extract it next to the game .exe (AirframeUltra.exe). Inside the zip is 
+Installing is a simple drag and drop. Take the .zip file and extract it ("Extract Here") next to the game .exe (AirframeUltra.exe). Inside the zip is the folder "AirframeUltra_Data", and next to the game .exe is a folder with the exact same name. The idea is that you extract the .zip and it merges with the other folder, replacing any duplicates with the new modified files! You should see a "Do you want to replace these files?" prompt. Hit yes to all.
