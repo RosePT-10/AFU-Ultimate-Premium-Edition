@@ -560,7 +560,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="AssetTools.cs" />
 		<Compile Include="Core.cs" />
 	</ItemGroup>
 	

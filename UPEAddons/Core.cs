@@ -43,74 +43,91 @@ namespace UPEAddons
         bool is_animation_playing;
         bool y_or_n; // rng check
         public bool is_second_button_press;
+        public int timer = 0;
 
-
-        [HarmonyPatch(typeof(SplashScreenHandler), "OnAnyButtonPress")]
-        private static class Patch
-        {
-            public static void Postfix()
-            { 
-                Melon<Core>.Logger.Msg("Detected method: OnAnyButtonPress");
-                
-                if (Melon<Core>.Instance.is_second_button_press == false)
-                {
-                    // if the ytp edit of the custom disclaimer screen is still playing, stop it
-                    Melon<Core>.Instance.PlayCustomSplashAudio(false);
-
-                    // display the custom controller splash screen
-                    Melon<Core>.Logger.Msg("Attempting to display an image...");
-                    MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawCustomControllerSplash, 0);
-                    Melon<Core>.Logger.Msg("Worked!");
-                    Melon<Core>.Instance.is_second_button_press = true;
-                    
-                }
-                else
-                {
-                    MelonEvents.OnGUI.Unsubscribe(Melon<Core>.Instance.DrawCustomControllerSplash);
-                }
-            }
-        }
         
-
-        //private void DrawAnimation()
-        //{   
+        // basically args for DrawAnimation()
+        string AnimTextureName;
+        UnityEngine.Texture AnimTexture;
+        public void DrawAnimation()
+        {   
             //LoggerInstance.Msg(jump_scare_texture);
             //determine what frame to display
-            //decimal framecounter = (timer * 1.2M) / 4;
-            //framecounter = Decimal.Truncate(framecounter);
-            //framecounter = Math.Clamp(framecounter, 0, 12);
-            //LoggerInstance.Msg(framecounter.ToString());
+            decimal framecounter = (timer * 1.2M) / 4;
+            framecounter = Decimal.Truncate(framecounter);
+            framecounter = Math.Clamp(framecounter, 0, 12);
+            LoggerInstance.Msg(framecounter.ToString());
             
 
-            //jump_scare_texture = bundle.LoadAsset<Texture>("jump" + framecounter);
-            //Texture.Instantiate(jump_scare_texture);
-            //GUI.DrawTexture(new Rect(0, 0, 1920, 1080), jump_scare_texture);
+            AnimTexture = Melon<Core>.Instance.bundle.LoadAsset<Texture>(AnimTextureName + framecounter);
+            Texture.Instantiate(AnimTexture);
+            GUI.DrawTexture(new Rect(0, 0, 1920, 1080), AnimTexture);
             
-        //}
-
-        private void DrawCustomControllerSplash()
-        {
-            image = bundle.LoadAsset<Texture>("CustomControllerWarning");
-            Texture.Instantiate(image);
-            GUI.DrawTexture(new Rect(0, 0, 1920, 1080), image);
-            //LoggerInstance.Msg("Ran DrawCustomControllerSplash");
         }
-        private void PlayCustomSplashAudio(bool play)
+
+        public void TrackTime()
         {
-            if (play == true)
+            if (timer == 50)
             {
-                clone.GetComponent<AudioSource>().Play();
+                timer = 0;
             }
             else
             {
-                clone.GetComponent<AudioSource>().Stop();
-                //audio_disclaimer_ytp.GetComponent<AudioSource>().Stop();
+                timer ++;
             }
-            
         }
-        private bool CheckRng()
+
+        public string ImageTextureName;
+        private void DrawImage()
         {
-            int rng = System.Random.Shared.Next(0, Chance.Value);
+            image = bundle.LoadAsset<Texture>(ImageTextureName);
+            Texture.Instantiate(image);
+            GUI.DrawTexture(new Rect(0, 0, 1920, 1080), image);
+            //LoggerInstance.Msg("Ran DrawImage");
+        }
+
+        private UnityEngine.GameObject ManageAudio
+            (
+                int mode, 
+                UnityEngine.GameObject prefab_instance, 
+                string prefab_name = null,
+                string audio_clip_name = null
+            )
+        {
+            UnityEngine.GameObject prefab;
+            UnityEngine.AudioClip audio_clip;
+            
+            switch (mode)
+            {
+                case 0: // instantiate the GameObject containing the AudioSource
+                    if (prefab_name != null)
+                    {
+                        prefab = bundle.LoadAsset<GameObject>(prefab_name);
+                        prefab_instance = GameObject.Instantiate(prefab);
+                        return prefab_instance;
+                    }
+                    else {return null;}
+                case 1: // using the instance of the previously instantiated GameObject, change the assigned AudioClip
+                    if (audio_clip_name != null)
+                    {
+                        audio_clip = bundle.LoadAsset<AudioClip>(audio_clip_name);
+                        prefab_instance.GetComponent<AudioSource>().clip = audio_clip;
+                        return prefab_instance;
+                    }
+                    else {return null;}
+                case 2: // make the AudioSource play it's AudioClip
+                    prefab_instance.GetComponent<AudioSource>().Play();
+                    return prefab_instance;
+                case 3: // make the AudioSource stop playing it's AudioClip
+                    prefab_instance.GetComponent<AudioSource>().Stop();
+                    return prefab_instance;
+                default:
+                    return null;
+            }
+        }
+        private bool CheckRng(int chance)
+        {
+            int rng = System.Random.Shared.Next(0, chance);
             //LoggerInstance.Msg(rng);
             if (rng == 1)
             {
@@ -123,6 +140,36 @@ namespace UPEAddons
 
             return y_or_n;
         }
+
+
+        [HarmonyPatch(typeof(SplashScreenHandler), "OnAnyButtonPress")]
+        private static class Patch
+        {
+            public static void Postfix()
+            { 
+                Melon<Core>.Logger.Msg("Detected method: OnAnyButtonPress");
+                
+                if (Melon<Core>.Instance.is_second_button_press == false)
+                {
+                    // if the ytp edit of the custom disclaimer screen is still playing, stop it
+                    Melon<Core>.Instance.ManageAudio(3, Melon<Core>.Instance.audio_disclaimer_ytp);
+
+                    // display the custom controller splash screen
+                    Melon<Core>.Logger.Msg("Attempting to display an image...");
+                    // draw image arg
+                    Melon<Core>.Instance.ImageTextureName = "CustomControllerWarning";
+                    MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawImage, 0);
+                    Melon<Core>.Logger.Msg("Worked!");
+                    Melon<Core>.Instance.is_second_button_press = true;
+                    
+                }
+                else
+                {
+                    MelonEvents.OnGUI.Unsubscribe(Melon<Core>.Instance.DrawImage);
+                }
+            }
+        }
+
         public override void OnInitializeMelon()
         {
             // initialize config file
@@ -147,7 +194,7 @@ namespace UPEAddons
 
             
             // set timer
-            Melon<AssetTools>.Instance.timer = 0;
+            timer = 0;
 
             // log outcome
             if (got_asset == true)
@@ -168,14 +215,13 @@ namespace UPEAddons
             
             if (sceneName == "Splashes")
             {
-                audio_disclaimer_ytp = bundle.LoadAsset<GameObject>("BetaDisclSoundSource");
-                clone = GameObject.Instantiate(audio_disclaimer_ytp);
-                PlayCustomSplashAudio(true);
+                audio_disclaimer_ytp = ManageAudio(0, null, "BetaDisclSoundSource");
+                ManageAudio(2, prefab_instance: audio_disclaimer_ytp);
             }
             if (sceneName == "MainMenu")
             {
                 // get rid of all custom splash screen gui elements
-                MelonEvents.OnGUI.UnsubscribeAll();
+                MelonEvents.OnGUI.Unsubscribe(DrawImage);
                 
                 // jumpscare testing
                 // play noise
@@ -184,9 +230,9 @@ namespace UPEAddons
                 //jumpscare_game_object.GetComponent<AudioSource>().Play();
                 
                 // play video
-                Melon<AssetTools>.Instance.AnimTextureName = "jump";
-                MelonEvents.OnGUI.Subscribe(Melon<AssetTools>.Instance.DrawAnimation, 0);
-                is_animation_playing = true;
+                //AnimTextureName = "jump";
+                //MelonEvents.OnGUI.Subscribe(DrawAnimation, 0);
+                //is_animation_playing = true;
             }
         }
         
@@ -194,21 +240,22 @@ namespace UPEAddons
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            // only check once every second
-            if (Melon<AssetTools>.Instance.timer >= 50)
-            {
-                Melon<AssetTools>.Instance.timer = 0;
 
+            TrackTime();
+
+            // only check once every second
+            if (timer >= 50)
+            {
                 // stop animation after a full second of playing
                 if (is_animation_playing == true)
                 {
-                    MelonEvents.OnGUI.Unsubscribe(Melon<AssetTools>.Instance.DrawAnimation);
+                    MelonEvents.OnGUI.Unsubscribe(DrawAnimation);
                     is_animation_playing = false;
                 }
 
                 // play jumpscare this frame depending on rng
                 //LoggerInstance.Msg("Checking rng...");
-                CheckRng();
+                CheckRng(Chance.Value);
                 if (y_or_n == true && is_animation_playing == false)
                 {
                     // play noise
@@ -225,9 +272,9 @@ namespace UPEAddons
                     LoggerInstance.Msg("Played jump scare sound this frame.");
 
                     // effectively the arg for DrawAnimation()
-                    Melon<AssetTools>.Instance.AnimTextureName = "jump";
+                    AnimTextureName = "jump";
                     // play video
-                    MelonEvents.OnGUI.Subscribe(Melon<AssetTools>.Instance.DrawAnimation, 0);
+                    MelonEvents.OnGUI.Subscribe(DrawAnimation, 0);
                     is_animation_playing = true;
                 }
                 else
@@ -235,12 +282,6 @@ namespace UPEAddons
                     //LoggerInstance.Msg("\"You missed that one, try another!\"");
                 }
             }
-            else
-            {
-                Melon<AssetTools>.Instance.timer ++;
-                //LoggerInstance.Msg(Melon<AssetTools>.Instance.timer);
-            }
-            
         }
 
         
