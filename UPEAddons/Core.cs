@@ -11,6 +11,13 @@ using UnityEngine.UI;
 using MelonLoader.ICSharpCode.SharpZipLib.Zip;
 using Il2CppQuantum;
 using Unity.Mathematics;
+using HarmonyLib;
+using HarmonyLib.Tools;
+using Il2Cpp;
+using Unity.Collections;
+using System.Net.NetworkInformation;
+using UnityEngine.InputSystem;
+using System.Reflection;
 
 [assembly: MelonInfo(typeof(UPEAddons.Core), "UPEAddons", "1.0.0", "RosePT-10", null)]
 [assembly: MelonGame("Videocult", "Airframe")]
@@ -22,7 +29,10 @@ namespace UPEAddons
         public UnityEngine.GameObject jumpscare_game_object;
         public UnityEngine.Texture jump_scare_texture;
         public UnityEngine.AudioClip jump_scare_sound_file;
+        public UnityEngine.Texture image;
         UnityEngine.AssetBundle bundle;
+
+        public static Core core;
 
         private MelonPreferences_Category JumpScareCat;
         private MelonPreferences_Entry<int> Chance;
@@ -32,6 +42,29 @@ namespace UPEAddons
         bool is_animation_playing;
         bool y_or_n; // rng check
         string path;
+
+
+        [HarmonyPatch(typeof(SplashScreenHandler), "OnAnyButtonPress")]
+        private static class Patch
+        {
+            //private static void TestMethod()
+            //{
+                //core = new Core();
+                //core.LoggerInstance.Msg("Ran TestMethod");
+            //}
+            //public static void HarmonyLib.Preix()
+            //{
+                //Melon<Core>.Logger.Msg();
+            //}
+            public static void Postfix()
+            { 
+                Melon<Core>.Logger.Msg("Attempting to display an image...");
+                //Melon<Core>.Instance.DrawImage();
+                MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawImage, 0);
+                Melon<Core>.Logger.Msg("Worked!");
+            }
+        }
+        
 
         private void DrawAnimation()
         {   
@@ -47,6 +80,14 @@ namespace UPEAddons
             Texture.Instantiate(jump_scare_texture);
             GUI.DrawTexture(new Rect(0, 0, 1920, 1080), jump_scare_texture);
             
+        }
+
+        private void DrawImage()
+        {
+            image = bundle.LoadAsset<Texture>("jump1");
+            Texture.Instantiate(image);
+            GUI.DrawTexture(new Rect(0, 0, 1920, 1080), image);
+            LoggerInstance.Msg("Ran DrawImage");
         }
         private bool CheckRng()
         {
@@ -107,9 +148,12 @@ namespace UPEAddons
         {
             base.OnSceneWasLoaded(buildIndex, sceneName);
 
-            // testing jumpscare
+            
             if (sceneName == "MainMenu")
             {
+                
+                
+                // jumpscare testing
                 // play noise
                 //jumpscare_game_object = bundle.LoadAsset<GameObject>("JumpScareAudio");
                 //GameObject.Instantiate(jumpscare_game_object);
@@ -182,4 +226,6 @@ namespace UPEAddons
         }
         
     }
+
+    
 }
