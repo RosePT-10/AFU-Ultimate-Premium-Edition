@@ -1,0 +1,569 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<RootNamespace>UPEAddons</RootNamespace>
+		<LangVersion>default</LangVersion>
+		<IsPackable>false</IsPackable>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<AssemblyName>UPEAddons</AssemblyName>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="MelonLoader">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\net6\MelonLoader.dll</HintPath>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\net6\0Harmony.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Runtime">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Common">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppAfuAnalytics">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppAfuAnalytics.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppAG.Client.Runtime.Before">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppAG.Client.Runtime.Before.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppAG.Lib.Runtime">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppAG.Lib.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppAG.Overrides.IO">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppAG.Overrides.IO.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCharacterAndBikeEditor">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCharacterAndBikeEditor.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppClient">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppClient.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCrankcaseAudio">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCrankcaseAudio.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomBikes">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomBikes.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomBikes_Access">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomBikes_Access.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomCharacterAndBikeUtility">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomCharacterAndBikeUtility.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomCharacters">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomCharacters.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomCharacters_Access">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomCharacters_Access.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomUIRendering">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomUIRendering.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomUIRenderingEditor">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomUIRenderingEditor.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCustomUIRendering_Access">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppCustomUIRendering_Access.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppHUD">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppHUD.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInput">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppInput.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInput_Access">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppInput_Access.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppMenus">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppMenus.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppMenusGameShared">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppMenusGameShared.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppMono.Security">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppMono.Security.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppmscorlib">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppNewtonsoft.Json">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppNewtonsoft.Json.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppPhoton.Realtime">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppPhoton.Realtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppPhotonClient">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppPhotonClient.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppPlayerColors">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppPlayerColors.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum.Deterministic">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum.Deterministic.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum.Engine">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum.Engine.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum.Log">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum.Log.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum.Simulation">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum.Simulation.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum.Unity">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum.Unity.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantumCustomAdditions">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantumCustomAdditions.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Core">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Environment">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Environment.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Game">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Game.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_HoverBike">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_HoverBike.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_HoverBikeShared">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_HoverBikeShared.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Humanoid">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Humanoid.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_HumanoidShared">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_HumanoidShared.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Police">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Police.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Setpieces">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Setpieces.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Spectator">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Spectator.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Systems">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Systems.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_SystemsSetup">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_SystemsSetup.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Traffic">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Traffic.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Tutorial">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Tutorial.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppQuantum_Weapons">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppQuantum_Weapons.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSoundCues">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSoundCues.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSteamworks">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSteamworks.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Configuration">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Configuration.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Core">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Data">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Data.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Drawing">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Drawing.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.IO.Compression">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.IO.Compression.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Numerics">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Numerics.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Runtime.Serialization">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Runtime.Serialization.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Xml">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Xml.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Xml.Linq">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppSystem.Xml.Linq.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppTerrainRopes">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppTerrainRopes.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppTools_LevelData">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppTools_LevelData.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppTools_LevelEdit">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppTools_LevelEdit.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppTools_PointCollections">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppTools_PointCollections.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppTools_Traffic">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppTools_Traffic.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppUI_LEGACY_Core">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppUI_LEGACY_Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppUI_LEGACY_PlayerHUD">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppUI_LEGACY_PlayerHUD.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppUI_Localization">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppUI_Localization.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppUtility">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppUtility.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Access">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Access.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Audio">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Audio.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Cosmetic">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Cosmetic.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_DecalsAndCharring">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_DecalsAndCharring.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Effects">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Effects.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Entities">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Entities.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Environment">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Environment.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Equipment">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Equipment.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Game">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Game.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Humanoid">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Humanoid.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Lighting">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Lighting.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Main">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Main.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Music">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Music.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Police">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Police.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Setpieces">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Setpieces.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Traffic">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Traffic.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Trains">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Trains.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppView_Tutorial">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2CppView_Tutorial.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cpp__Generated">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Il2Cpp__Generated.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Addressables">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Addressables.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.AI.Navigation">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.AI.Navigation.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Burst">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Burst.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Burst.Unsafe">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Burst.Unsafe.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Collections">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Collections.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Collections.LowLevel.ILSupport">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.InputSystem">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.InputSystem.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.InputSystem.ForUI">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Mathematics">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Mathematics.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.ResourceManager">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.ResourceManager.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Analytics">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Analytics.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Configuration">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Configuration.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Device">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Device.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Environments">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Environments.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Environments.Internal">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Environments.Internal.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Internal">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Internal.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Registration">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Registration.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Scheduler">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Scheduler.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Telemetry">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Telemetry.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Services.Core.Threading">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.Services.Core.Threading.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AccessibilityModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.AccessibilityModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AIModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.AIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AndroidJNIModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.AndroidJNIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AnimationModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ARModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.ARModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AssetBundleModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AudioModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.AudioModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ClothModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.ClothModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ContentLoadModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.ContentLoadModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CrashReportingModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.CrashReportingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.DirectorModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.DirectorModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.DSPGraphModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.DSPGraphModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.GameCenterModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.GameCenterModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.GIModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.GIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.GridModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.GridModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.HotReloadModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.HotReloadModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.InputModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.InputModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.LocalizationModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.LocalizationModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ParticleSystemModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.ParticleSystemModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PerformanceReportingModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.PerformanceReportingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.Physics2DModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.Physics2DModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.PhysicsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ProfilerModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.ProfilerModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PropertiesModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.PropertiesModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ScreenCaptureModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.ScreenCaptureModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SharedInternalsModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.SharedInternalsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteMaskModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.SpriteMaskModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteShapeModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.SpriteShapeModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.StreamingModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.StreamingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SubstanceModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.SubstanceModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SubsystemsModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.SubsystemsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.TerrainModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainPhysicsModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreFontEngineModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreTextEngineModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TilemapModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.TilemapModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TLSModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.TLSModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIElementsModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UIElementsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UmbraModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UmbraModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityAnalyticsModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityConnectModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityConnectModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityCurlModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityCurlModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityTestProtocolModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestAudioModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestTextureModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestWWWModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VehiclesModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.VehiclesModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VFXModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.VFXModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VideoModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.VideoModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VRModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.VRModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.WindModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.WindModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.XRModule">
+			<HintPath>d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\MelonLoader\Il2CppAssemblies\UnityEngine.XRModule.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="Core.cs" />
+	</ItemGroup>
+	
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;d:\_AIRFRAME ULTRA\Airframe Ultra Beta4 Rose Mods\Mods&quot;" />
+	</Target>
+</Project>
