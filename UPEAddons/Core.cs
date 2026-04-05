@@ -39,6 +39,7 @@ namespace UPEAddons
         private MelonPreferences_Category JumpScareCat;
         private MelonPreferences_Entry<int> Chance;
         private MelonPreferences_Entry<bool> IsSilly;
+        private MelonPreferences_Entry<bool> IsEnabled;
 
         bool is_animation_playing;
         bool y_or_n; // rng check
@@ -176,6 +177,7 @@ namespace UPEAddons
             JumpScareCat = MelonPreferences.CreateCategory("FoxyJumpScareRNG");
             Chance = JumpScareCat.CreateEntry<int>("JumpScareRarity", 10000);
             IsSilly = JumpScareCat.CreateEntry<bool>("GoofySoundEffect", false);
+            IsEnabled = JumpScareCat.CreateEntry<bool>("Enabled?", false);
             
             
             // initialize asset bundle
@@ -255,31 +257,34 @@ namespace UPEAddons
 
                 // play jumpscare this frame depending on rng
                 //LoggerInstance.Msg("Checking rng...");
-                CheckRng(Chance.Value);
-                if (y_or_n == true && is_animation_playing == false)
+                if (IsEnabled.Value == true)
                 {
-                    // play noise
-                    jumpscare_game_object = bundle.LoadAsset<GameObject>("JumpScareAudio");
-                    
-                    if (IsSilly.Value == true)
+                    CheckRng(Chance.Value);
+                    if (y_or_n == true && is_animation_playing == false)
                     {
-                        jump_scare_sound_file = bundle.LoadAsset<AudioClip>("Poke");
-                        jumpscare_game_object.GetComponent<AudioSource>().clip = jump_scare_sound_file;
-                        jumpscare_game_object.GetComponent<AudioSource>().volume = 1;
-                    }
-                    GameObject.Instantiate(jumpscare_game_object);
-                    jumpscare_game_object.GetComponent<AudioSource>().Play();
-                    LoggerInstance.Msg("Played jump scare sound this frame.");
+                        // play noise
+                        jumpscare_game_object = bundle.LoadAsset<GameObject>("JumpScareAudio");
+                        
+                        if (IsSilly.Value == true)
+                        {
+                            jump_scare_sound_file = bundle.LoadAsset<AudioClip>("Poke");
+                            jumpscare_game_object.GetComponent<AudioSource>().clip = jump_scare_sound_file;
+                            jumpscare_game_object.GetComponent<AudioSource>().volume = 1;
+                        }
+                        GameObject.Instantiate(jumpscare_game_object);
+                        jumpscare_game_object.GetComponent<AudioSource>().Play();
+                        LoggerInstance.Msg("Played jump scare sound this frame.");
 
-                    // effectively the arg for DrawAnimation()
-                    AnimTextureName = "jump";
-                    // play video
-                    MelonEvents.OnGUI.Subscribe(DrawAnimation, 0);
-                    is_animation_playing = true;
-                }
-                else
-                {
-                    //LoggerInstance.Msg("\"You missed that one, try another!\"");
+                        // effectively the arg for DrawAnimation()
+                        AnimTextureName = "jump";
+                        // play video
+                        MelonEvents.OnGUI.Subscribe(DrawAnimation, 0);
+                        is_animation_playing = true;
+                    }
+                    else
+                    {
+                        //LoggerInstance.Msg("\"You missed that one, try another!\"");
+                    }
                 }
             }
         }
