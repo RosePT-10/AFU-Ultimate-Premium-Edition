@@ -30,6 +30,8 @@ namespace UPEAddons
         public UnityEngine.Texture jump_scare_texture;
         public UnityEngine.AudioClip jump_scare_sound_file;
         public UnityEngine.Texture image;
+        public UnityEngine.GameObject audio_disclaimer_ytp;
+        public GameObject clone;
         UnityEngine.AssetBundle bundle;
 
         public static Core core;
@@ -41,27 +43,32 @@ namespace UPEAddons
         int timer; // check once every second
         bool is_animation_playing;
         bool y_or_n; // rng check
-        string path;
+        public bool is_second_button_press;
 
 
         [HarmonyPatch(typeof(SplashScreenHandler), "OnAnyButtonPress")]
         private static class Patch
         {
-            //private static void TestMethod()
-            //{
-                //core = new Core();
-                //core.LoggerInstance.Msg("Ran TestMethod");
-            //}
-            //public static void HarmonyLib.Preix()
-            //{
-                //Melon<Core>.Logger.Msg();
-            //}
             public static void Postfix()
             { 
-                Melon<Core>.Logger.Msg("Attempting to display an image...");
-                //Melon<Core>.Instance.DrawImage();
-                MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawImage, 0);
-                Melon<Core>.Logger.Msg("Worked!");
+                Melon<Core>.Logger.Msg("Detected method: OnAnyButtonPress");
+                
+                if (Melon<Core>.Instance.is_second_button_press == false)
+                {
+                    // if the ytp edit of the custom disclaimer screen is still playing, stop it
+                    Melon<Core>.Instance.PlayCustomSplashAudio(false);
+
+                    // display the custom controller splash screen
+                    Melon<Core>.Logger.Msg("Attempting to display an image...");
+                    MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawCustomControllerSplash, 0);
+                    Melon<Core>.Logger.Msg("Worked!");
+                    Melon<Core>.Instance.is_second_button_press = true;
+                    
+                }
+                else
+                {
+                    MelonEvents.OnGUI.Unsubscribe(Melon<Core>.Instance.DrawCustomControllerSplash);
+                }
             }
         }
         
@@ -82,12 +89,25 @@ namespace UPEAddons
             
         }
 
-        private void DrawImage()
+        private void DrawCustomControllerSplash()
         {
-            image = bundle.LoadAsset<Texture>("jump1");
+            image = bundle.LoadAsset<Texture>("CustomControllerWarning");
             Texture.Instantiate(image);
             GUI.DrawTexture(new Rect(0, 0, 1920, 1080), image);
-            LoggerInstance.Msg("Ran DrawImage");
+            //LoggerInstance.Msg("Ran DrawCustomControllerSplash");
+        }
+        private void PlayCustomSplashAudio(bool play)
+        {
+            if (play == true)
+            {
+                clone.GetComponent<AudioSource>().Play();
+            }
+            else
+            {
+                clone.GetComponent<AudioSource>().Stop();
+                //audio_disclaimer_ytp.GetComponent<AudioSource>().Stop();
+            }
+            
         }
         private bool CheckRng()
         {
@@ -114,9 +134,7 @@ namespace UPEAddons
             
             // initialize asset bundle
             bool got_asset;
-            path = Path.GetFullPath("jump_scare.assets").Replace('\\', '/');
-            LoggerInstance.Msg(path);
-            bundle = AssetBundle.LoadFromFile("./UserData/jump_scare.assets");
+            bundle = AssetBundle.LoadFromFile("./UserData/upeaddons.assets");
             if (bundle == null)
             {
                 LoggerInstance.Msg("Failed to load custom asset bundle :[");
@@ -147,11 +165,18 @@ namespace UPEAddons
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
             base.OnSceneWasLoaded(buildIndex, sceneName);
-
+            LoggerInstance.Msg(sceneName);
             
+            if (sceneName == "Splashes")
+            {
+                audio_disclaimer_ytp = bundle.LoadAsset<GameObject>("BetaDisclSoundSource");
+                clone = GameObject.Instantiate(audio_disclaimer_ytp);
+                PlayCustomSplashAudio(true);
+            }
             if (sceneName == "MainMenu")
             {
-                
+                // get rid of all custom splash screen gui elements
+                MelonEvents.OnGUI.UnsubscribeAll();
                 
                 // jumpscare testing
                 // play noise
