@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\_AIRFRAME ULTRA\\_Mods and tools\\_RoseMods\\UPEAddons\\UPEAddons\\UPEAddons.csproj",
+      "projectUniqueName": "D:\\_AIRFRAME ULTRA\\_Mods and tools\\_RoseMods\\AFU-Ultimate-Premium-Edition\\UPEAddons\\UPEAddons.csproj",
       "projectName": "UPEAddons",
-      "projectPath": "D:\\_AIRFRAME ULTRA\\_Mods and tools\\_RoseMods\\UPEAddons\\UPEAddons\\UPEAddons.csproj",
+      "projectPath": "D:\\_AIRFRAME ULTRA\\_Mods and tools\\_RoseMods\\AFU-Ultimate-Premium-Edition\\UPEAddons\\UPEAddons.csproj",
       "packagesPath": "C:\\Users\\taldo\\.nuget\\packages\\",
-      "outputPath": "D:\\_AIRFRAME ULTRA\\_Mods and tools\\_RoseMods\\UPEAddons\\UPEAddons\\obj\\",
+      "outputPath": "D:\\_AIRFRAME ULTRA\\_Mods and tools\\_RoseMods\\AFU-Ultimate-Premium-Edition\\UPEAddons\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\taldo\\AppData\\Roaming\\NuGet\\NuGet.Config"
