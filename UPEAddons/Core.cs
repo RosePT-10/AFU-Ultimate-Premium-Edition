@@ -32,7 +32,7 @@ namespace UPEAddons
         public UnityEngine.Texture image;
         public UnityEngine.GameObject audio_disclaimer_ytp;
         public GameObject clone;
-        UnityEngine.AssetBundle bundle;
+        public UnityEngine.AssetBundle bundle;
 
         public static Core core;
 
@@ -40,7 +40,6 @@ namespace UPEAddons
         private MelonPreferences_Entry<int> Chance;
         private MelonPreferences_Entry<bool> IsSilly;
 
-        int timer; // check once every second
         bool is_animation_playing;
         bool y_or_n; // rng check
         public bool is_second_button_press;
@@ -73,21 +72,21 @@ namespace UPEAddons
         }
         
 
-        private void DrawAnimation()
-        {   
+        //private void DrawAnimation()
+        //{   
             //LoggerInstance.Msg(jump_scare_texture);
             //determine what frame to display
-            decimal framecounter = (timer * 1.2M) / 4;
-            framecounter = Decimal.Truncate(framecounter);
-            framecounter = Math.Clamp(framecounter, 0, 12);
-            LoggerInstance.Msg(framecounter.ToString());
+            //decimal framecounter = (timer * 1.2M) / 4;
+            //framecounter = Decimal.Truncate(framecounter);
+            //framecounter = Math.Clamp(framecounter, 0, 12);
+            //LoggerInstance.Msg(framecounter.ToString());
             
 
-            jump_scare_texture = bundle.LoadAsset<Texture>("jump" + framecounter);
-            Texture.Instantiate(jump_scare_texture);
-            GUI.DrawTexture(new Rect(0, 0, 1920, 1080), jump_scare_texture);
+            //jump_scare_texture = bundle.LoadAsset<Texture>("jump" + framecounter);
+            //Texture.Instantiate(jump_scare_texture);
+            //GUI.DrawTexture(new Rect(0, 0, 1920, 1080), jump_scare_texture);
             
-        }
+        //}
 
         private void DrawCustomControllerSplash()
         {
@@ -148,7 +147,7 @@ namespace UPEAddons
 
             
             // set timer
-            timer = 0;
+            Melon<AssetTools>.Instance.timer = 0;
 
             // log outcome
             if (got_asset == true)
@@ -185,8 +184,9 @@ namespace UPEAddons
                 //jumpscare_game_object.GetComponent<AudioSource>().Play();
                 
                 // play video
-                //MelonEvents.OnGUI.Subscribe(DrawAnimation, 0);
-                //is_animation_playing = true;
+                Melon<AssetTools>.Instance.AnimTextureName = "jump";
+                MelonEvents.OnGUI.Subscribe(Melon<AssetTools>.Instance.DrawAnimation, 0);
+                is_animation_playing = true;
             }
         }
         
@@ -195,14 +195,14 @@ namespace UPEAddons
         {
             base.OnFixedUpdate();
             // only check once every second
-            if (timer >= 50)
+            if (Melon<AssetTools>.Instance.timer >= 50)
             {
-                timer = 0;
+                Melon<AssetTools>.Instance.timer = 0;
 
                 // stop animation after a full second of playing
                 if (is_animation_playing == true)
                 {
-                    MelonEvents.OnGUI.Unsubscribe(DrawAnimation);
+                    MelonEvents.OnGUI.Unsubscribe(Melon<AssetTools>.Instance.DrawAnimation);
                     is_animation_playing = false;
                 }
 
@@ -224,8 +224,10 @@ namespace UPEAddons
                     jumpscare_game_object.GetComponent<AudioSource>().Play();
                     LoggerInstance.Msg("Played jump scare sound this frame.");
 
+                    // effectively the arg for DrawAnimation()
+                    Melon<AssetTools>.Instance.AnimTextureName = "jump";
                     // play video
-                    MelonEvents.OnGUI.Subscribe(DrawAnimation, 0);
+                    MelonEvents.OnGUI.Subscribe(Melon<AssetTools>.Instance.DrawAnimation, 0);
                     is_animation_playing = true;
                 }
                 else
@@ -235,8 +237,8 @@ namespace UPEAddons
             }
             else
             {
-                timer ++;
-                //LoggerInstance.Msg(timer);
+                Melon<AssetTools>.Instance.timer ++;
+                //LoggerInstance.Msg(Melon<AssetTools>.Instance.timer);
             }
             
         }

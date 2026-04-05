@@ -560,8 +560,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="Core.cs" />
 		<Compile Include="AssetTools.cs" />
+		<Compile Include="Core.cs" />
 	</ItemGroup>
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
