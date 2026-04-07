@@ -248,9 +248,17 @@ namespace UPEAddons
                 // play menu music overlay (thanks melli!)
                 main_menu_remix_game_object = ManageAudio(0, null, "MusicRemixAudio");
                 main_menu_remix_game_object.GetComponent<AudioSource>().volume = 0.7F;
-                ManageAudio(1, main_menu_remix_game_object, audio_clip_name: "MenuMusicOverlay");
+                main_menu_remix_game_object.GetComponent<AudioSource>().loop = true;
+                ManageAudio(1, main_menu_remix_game_object, audio_clip_name: "MenuMusicFull");
                 main_menu_remix_game_object.GetComponent<AudioSource>().PlayDelayed(0.00097F);
-                
+                // the PlayDelayed() was because this used to require
+                // putting an overlay of the music edit on top of the base song.
+                // i figured out how to stop the main menu music
+                // hours later.
+                // the delay remains in rememberance of the hours spend adjusting it
+                // to sync up correctly.
+                //
+                // rest in peace MenuMusicOverlay.
                 
                 // model testing
                 UnityEngine.Vector3 bigV3;
@@ -330,17 +338,7 @@ namespace UPEAddons
 
             // only check once every second
             if (timer >= 50)
-            {
-                // audio testing
-                UnityEngine.Object[] audio_sources = GameObject.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
-                foreach (AudioSource a in audio_sources)
-                {
-                    if (a.isPlaying == true)
-                    {
-                        LoggerInstance.Msg(a.name);
-                    }
-                }
-                
+            {   
                 // stop animation after a full second of playing
                 if (is_animation_playing == true)
                 {
@@ -386,6 +384,25 @@ namespace UPEAddons
         public override void OnUpdate()
         {
             base.OnUpdate();
+
+            // audio testing
+            if (current_scene == "MainMenu")
+            {
+                UnityEngine.Object[] audio_sources = GameObject.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+                //LoggerInstance.Msg($"{Environment.NewLine}{Environment.NewLine}CURRENTLY PLAYING SOUND SOURCES:{Environment.NewLine}");
+                foreach (AudioSource a in audio_sources)
+                {
+                    if (a.isPlaying == true)
+                    {
+                        //LoggerInstance.Msg(a.clip.name);
+                    }
+                    if (a.name == "Music")
+                    {
+                        a.Stop();
+                    }
+                }
+            }
+                
             
         }
         
