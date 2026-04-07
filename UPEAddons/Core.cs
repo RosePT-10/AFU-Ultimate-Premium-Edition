@@ -36,7 +36,7 @@ namespace UPEAddons
         public UnityEngine.AudioClip jump_scare_sound_file;
         public UnityEngine.Texture image;
         public UnityEngine.GameObject audio_disclaimer_ytp;
-        public GameObject clone;
+        public UnityEngine.GameObject main_menu_remix_game_object;
         public UnityEngine.AssetBundle bundle;
 
         public static Core core;
@@ -177,14 +177,14 @@ namespace UPEAddons
             }
         }
 
-        [HarmonyPatch(typeof(Accessory), "DrawTick", new Type[] {typeof(float)})]
-        public static class ClothingReplacement
-        {
-            public static void Postfix(Accessory __instance)
-            {
-                __instance.clothingItem = new ClothingItem();
-            }
-        }
+        //[HarmonyPatch(typeof(Accessory), "DrawTick", new Type[] {typeof(float)})]
+        //public static class ClothingReplacement
+        //{
+        //    public static void Postfix(Accessory __instance)
+        //    {
+        //        __instance.clothingItem = new ClothingItem();
+        //    }
+        //}
     
         public override void OnInitializeMelon()
         {
@@ -246,10 +246,10 @@ namespace UPEAddons
                 MelonEvents.OnGUI.Unsubscribe(DrawImage);
 
                 // play menu music overlay (thanks melli!)
-                jumpscare_game_object = ManageAudio(0, null, "JumpScareAudio");
-                jumpscare_game_object.GetComponent<AudioSource>().volume = 0.7F;
-                ManageAudio(1, jumpscare_game_object, audio_clip_name: "MenuMusicOverlay");
-                jumpscare_game_object.GetComponent<AudioSource>().PlayDelayed(0.00097F);
+                main_menu_remix_game_object = ManageAudio(0, null, "MusicRemixAudio");
+                main_menu_remix_game_object.GetComponent<AudioSource>().volume = 0.7F;
+                ManageAudio(1, main_menu_remix_game_object, audio_clip_name: "MenuMusicOverlay");
+                main_menu_remix_game_object.GetComponent<AudioSource>().PlayDelayed(0.00097F);
                 
                 
                 // model testing
@@ -331,6 +331,16 @@ namespace UPEAddons
             // only check once every second
             if (timer >= 50)
             {
+                // audio testing
+                UnityEngine.Object[] audio_sources = GameObject.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+                foreach (AudioSource a in audio_sources)
+                {
+                    if (a.isPlaying == true)
+                    {
+                        LoggerInstance.Msg(a.name);
+                    }
+                }
+                
                 // stop animation after a full second of playing
                 if (is_animation_playing == true)
                 {
@@ -372,6 +382,12 @@ namespace UPEAddons
             }
         }
 
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+        }
         
 
         public override void OnApplicationQuit()
