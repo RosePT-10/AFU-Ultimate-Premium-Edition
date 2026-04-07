@@ -18,6 +18,11 @@ using Unity.Collections;
 using System.Net.NetworkInformation;
 using UnityEngine.InputSystem;
 using System.Reflection;
+using System.Collections;
+using Il2CppView_Music;
+using Il2CppPhoton.Client.StructWrapping;
+using Il2CppMenus;
+using Il2CppCustomCharacters;
 
 [assembly: MelonInfo(typeof(UPEAddons.Core), "UPEAddons", "1.0.0", "RosePT-10", null)]
 [assembly: MelonGame("Videocult", "Airframe")]
@@ -45,6 +50,7 @@ namespace UPEAddons
         bool y_or_n; // rng check
         public bool is_second_button_press;
         public int timer = 0;
+        public string current_scene;
 
         
         // basically args for DrawAnimation()
@@ -144,11 +150,11 @@ namespace UPEAddons
 
 
         [HarmonyPatch(typeof(SplashScreenHandler), "OnAnyButtonPress")]
-        private static class Patch
+        private static class CustomSplashScreen
         {
             public static void Postfix()
             { 
-                Melon<Core>.Logger.Msg("Detected method: OnAnyButtonPress");
+                //Melon<Core>.Logger.Msg("Detected method: OnAnyButtonPress");
                 
                 if (Melon<Core>.Instance.is_second_button_press == false)
                 {
@@ -171,6 +177,15 @@ namespace UPEAddons
             }
         }
 
+        [HarmonyPatch(typeof(Accessory), "DrawTick", new Type[] {typeof(float)})]
+        public static class ClothingReplacement
+        {
+            public static void Postfix(Accessory __instance)
+            {
+                __instance.clothingItem = new ClothingItem();
+            }
+        }
+    
         public override void OnInitializeMelon()
         {
             // initialize config file
@@ -194,7 +209,10 @@ namespace UPEAddons
                 got_asset = true;
             }
 
-            
+            // fuck with music
+            new SongsLibrary().menu = null;
+            new SongsLibrary().warehouse = null;            
+
             // set timer
             timer = 0;
 
@@ -214,6 +232,8 @@ namespace UPEAddons
         {
             base.OnSceneWasLoaded(buildIndex, sceneName);
             LoggerInstance.Msg(sceneName);
+
+            current_scene = sceneName;
             
             if (sceneName == "Splashes")
             {
@@ -224,7 +244,37 @@ namespace UPEAddons
             {
                 // get rid of all custom splash screen gui elements
                 MelonEvents.OnGUI.Unsubscribe(DrawImage);
+
+                // play menu music overlay (thanks melli!)
+                jumpscare_game_object = ManageAudio(0, null, "JumpScareAudio");
+                jumpscare_game_object.GetComponent<AudioSource>().volume = 0.7F;
+                ManageAudio(1, jumpscare_game_object, audio_clip_name: "MenuMusicOverlay");
+                jumpscare_game_object.GetComponent<AudioSource>().PlayDelayed(0.00097F);
                 
+                
+                // model testing
+                UnityEngine.Vector3 bigV3;
+                bigV3.x = 10;
+                bigV3.y = 10;
+                bigV3.z = 10;
+                UnityEngine.Vector3 locationV3;
+                locationV3.x = 0;
+                locationV3.y = 1.4F;
+                locationV3.z = 9.7F;
+                UnityEngine.Vector3 rotationV3;
+                rotationV3.x = 1;
+                rotationV3.y = 70;
+                rotationV3.z = 0;
+
+                UnityEngine.GameObject cirno = bundle.LoadAsset<GameObject>("CirnoPrefab");
+                
+                cirno.active = true;
+                cirno.GetComponent<Transform>().position = locationV3;
+                cirno.GetComponent<Transform>().localScale = bigV3;
+                cirno.GetComponent<Transform>().Rotate(rotationV3);
+                GameObject.Instantiate(cirno);
+
+
                 // jumpscare testing
                 // play noise
                 //jumpscare_game_object = bundle.LoadAsset<GameObject>("JumpScareAudio");
@@ -235,6 +285,39 @@ namespace UPEAddons
                 //AnimTextureName = "jump";
                 //MelonEvents.OnGUI.Subscribe(DrawAnimation, 0);
                 //is_animation_playing = true;
+
+                
+            }
+            if (sceneName == "Warehouse")
+            {
+                // model testing
+                UnityEngine.Vector3 bigV3;
+                bigV3.x = 10;
+                bigV3.y = 10;
+                bigV3.z = 10;
+                UnityEngine.Vector3 locationV3;
+                locationV3.x = 0;
+                locationV3.y = 1.4F;
+                locationV3.z = 0;
+
+                UnityEngine.GameObject cirno = bundle.LoadAsset<GameObject>("CirnoPrefab");
+                
+                cirno.active = true;
+                cirno.GetComponent<Transform>().position = locationV3;
+                cirno.GetComponent<Transform>().localScale = bigV3;
+                //GameObject.Instantiate(cirno);
+
+                UnityEngine.GameObject helm = bundle.LoadAsset<GameObject>("HelmetKappaPrefab");
+                locationV3.x = 0;
+                locationV3.y = 1.4F;
+                locationV3.z = 0;
+                bigV3.x = 100;
+                bigV3.y = 100;
+                bigV3.z = 100;
+                helm.active = true;
+                helm.GetComponent<Transform>().position = locationV3;
+                helm.GetComponent<Transform>().localScale = bigV3;
+                GameObject.Instantiate(helm);
             }
         }
         
