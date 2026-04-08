@@ -52,6 +52,7 @@ namespace UPEAddons
         public bool is_second_button_press;
         public bool is_third_button_press = false;
         public int timer = 0;
+        public int double_click_protection_timer = 0;
         public string current_scene;
 
         
@@ -92,6 +93,7 @@ namespace UPEAddons
             image = bundle.LoadAsset<Texture>(ImageTextureName);
             Texture.Instantiate(image);
             GUI.DrawTexture(new Rect(0, 0, 1920, 1080), image);
+            
             //LoggerInstance.Msg("Ran DrawImage");
         }
 
@@ -154,12 +156,26 @@ namespace UPEAddons
         [HarmonyPatch(typeof(SplashScreenHandler), "OnAnyButtonPress")]
         private static class CustomSplashScreen
         {
+            public static void SuperDuperHardCodedImageDisplayMethod()
+            {
+                UnityEngine.Texture name = Melon<Core>.Instance.bundle.LoadAsset<Texture>("citrus_name");
+                Texture.Instantiate(name);
+                GUI.DrawTexture(new Rect(0, 0, 1920, 1080), name);
+            }
+            
+            public static void DoubleClickProtection()
+            {
+                Melon<Core>.Instance.double_click_protection_timer ++;
+            }
             public static void Postfix()
             { 
                 //Melon<Core>.Logger.Msg("Detected method: OnAnyButtonPress");
                 
                 if (Melon<Core>.Instance.is_second_button_press == false)
                 {
+                    // start counting a timer to keep track of how long it has been since the first button press
+                    MelonEvents.OnUpdate.Subscribe(DoubleClickProtection, 0);
+
                     // if the ytp edit of the custom disclaimer screen is still playing, stop it
                     Melon<Core>.Instance.ManageAudio(3, Melon<Core>.Instance.audio_disclaimer_ytp);
 
@@ -170,7 +186,7 @@ namespace UPEAddons
                     MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawImage, 0);
                     Melon<Core>.Logger.Msg("Worked!");
 
-                    // play ytp audio
+                    // play ytp audio [THIS NEEDS TO BE UPDATED IT IS HARDCODED BECAUSE MANAGEAUDIO(0) WAS BEING FUSSY]
                     Melon<Core>.Logger.Msg("trying to play second ytp");
                     //Melon<Core>.Instance.ManageAudio(1, UnityEngine.GameObject.Find("BetaDisclSoundSource(Clone)"), "AFU_UPE_YTP_2");
                     //Melon<Core>.Instance.ManageAudio(2, UnityEngine.GameObject.Find("BetaDisclSoundSource(Clone)"));
@@ -180,11 +196,16 @@ namespace UPEAddons
                     GameObject.Instantiate(Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus);
                     Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus.GetComponent<AudioSource>().Play();
                     Melon<Core>.Instance.is_second_button_press = true;
-                    
+
+                    // display name of person who is talking [ALSO HARDCODED, LACKS FUCNTIONALITY FOR DECIDING WHO IS SPEAKING BECAUSE THERE IS ONLY ONE FILE CURRENTLY]
+                    MelonEvents.OnGUI.Subscribe(SuperDuperHardCodedImageDisplayMethod, 1);
+
                 }
-                else
+                else if (Melon<Core>.Instance.double_click_protection_timer > 30)
                 {
                     MelonEvents.OnGUI.Unsubscribe(Melon<Core>.Instance.DrawImage);
+                    MelonEvents.OnGUI.Unsubscribe(SuperDuperHardCodedImageDisplayMethod);
+                    MelonEvents.OnUpdate.Unsubscribe(DoubleClickProtection);
                 }
             }
         }
@@ -251,6 +272,8 @@ namespace UPEAddons
             {
                 audio_disclaimer_ytp = ManageAudio(0, null, "BetaDisclSoundSource");
                 ManageAudio(2, prefab_instance: audio_disclaimer_ytp);
+                ImageTextureName = "rose_name";
+                MelonEvents.OnGUI.Subscribe(DrawImage, 0);
             }
             if (sceneName == "MainMenu")
             {
