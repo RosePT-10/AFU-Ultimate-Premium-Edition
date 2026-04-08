@@ -36,6 +36,7 @@ namespace UPEAddons
         public UnityEngine.AudioClip jump_scare_sound_file;
         public UnityEngine.Texture image;
         public UnityEngine.GameObject audio_disclaimer_ytp;
+        public UnityEngine.GameObject audio_disclaimer_ytp_2_Citrus;
         public UnityEngine.GameObject main_menu_remix_game_object;
         public UnityEngine.AssetBundle bundle;
 
@@ -49,6 +50,7 @@ namespace UPEAddons
         bool is_animation_playing;
         bool y_or_n; // rng check
         public bool is_second_button_press;
+        public bool is_third_button_press = false;
         public int timer = 0;
         public string current_scene;
 
@@ -167,6 +169,16 @@ namespace UPEAddons
                     Melon<Core>.Instance.ImageTextureName = "CustomControllerWarning";
                     MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawImage, 0);
                     Melon<Core>.Logger.Msg("Worked!");
+
+                    // play ytp audio
+                    Melon<Core>.Logger.Msg("trying to play second ytp");
+                    //Melon<Core>.Instance.ManageAudio(1, UnityEngine.GameObject.Find("BetaDisclSoundSource(Clone)"), "AFU_UPE_YTP_2");
+                    //Melon<Core>.Instance.ManageAudio(2, UnityEngine.GameObject.Find("BetaDisclSoundSource(Clone)"));
+                    Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus = Melon<Core>.Instance.bundle.LoadAsset<GameObject>("BetaDisclSoundSource1");
+                    //Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus.GetComponent<AudioSource>().clip = Melon<Core>.Instance.bundle.LoadAsset<AudioClip>("AFU_UPE_YTP_2");
+                    Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus.GetComponent<AudioSource>().volume = 0.3F;
+                    GameObject.Instantiate(Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus);
+                    Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus.GetComponent<AudioSource>().Play();
                     Melon<Core>.Instance.is_second_button_press = true;
                     
                 }
@@ -386,7 +398,7 @@ namespace UPEAddons
             base.OnUpdate();
 
             // audio testing
-            if (current_scene == "MainMenu")
+            if (current_scene == "MainMenu" | current_scene == "Splashes")
             {
                 UnityEngine.Object[] audio_sources = GameObject.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
                 //LoggerInstance.Msg($"{Environment.NewLine}{Environment.NewLine}CURRENTLY PLAYING SOUND SOURCES:{Environment.NewLine}");
@@ -394,7 +406,7 @@ namespace UPEAddons
                 {
                     if (a.isPlaying == true)
                     {
-                        //LoggerInstance.Msg(a.clip.name);
+                        //LoggerInstance.Msg(a.name);
                     }
                     if (a.name == "Music")
                     {
