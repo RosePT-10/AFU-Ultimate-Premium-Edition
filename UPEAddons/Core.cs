@@ -311,6 +311,7 @@ namespace UPEAddons
             if (sceneName == "Warehouse")
             {
                 // model testing
+                /*
                 UnityEngine.Vector3 bigV3;
                 bigV3.x = 10;
                 bigV3.y = 10;
@@ -338,6 +339,7 @@ namespace UPEAddons
                 helm.GetComponent<Transform>().position = locationV3;
                 helm.GetComponent<Transform>().localScale = bigV3;
                 GameObject.Instantiate(helm);
+                */
             }
         }
         
