@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UPEAddons")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d4de9f3b1df645d59b5f3a6be334dad9a93ae83")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e67118d4a4e9bde75a41afc572adc9a17761664e")]
 [assembly: System.Reflection.AssemblyProductAttribute("UPEAddons")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UPEAddons")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

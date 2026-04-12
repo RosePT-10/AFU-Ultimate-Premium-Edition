@@ -136,9 +136,9 @@ namespace UPEAddons
                     return null;
             }
         }
-        private bool CheckRng(int chance)
+        private bool OneInXChance(int chance)
         {
-            int rng = System.Random.Shared.Next(0, chance);
+            int rng = System.Random.Shared.Next(1, chance);
             //LoggerInstance.Msg(rng);
             if (rng == 1)
             {
@@ -152,6 +152,13 @@ namespace UPEAddons
             return y_or_n;
         }
 
+        private int GetRandomNumberWithinRange(int chance)
+        {
+            int rng = System.Random.Shared.Next(0, chance);
+            return rng;
+        }
+
+        public string image_name;
 
         [HarmonyPatch(typeof(SplashScreenHandler), "OnAnyButtonPress")]
         private static class CustomSplashScreen
@@ -161,6 +168,22 @@ namespace UPEAddons
                 UnityEngine.Texture name = Melon<Core>.Instance.bundle.LoadAsset<Texture>("citrus_name");
                 Texture.Instantiate(name);
                 GUI.DrawTexture(new Rect(0, 0, 1920, 1080), name);
+            }
+
+            public static UnityEngine.AudioClip AudioLoader(string audioclip_to_load)
+            {
+                UnityEngine.AudioClip buh = Melon<Core>.Instance.bundle.LoadAsset<AudioClip>(audioclip_to_load);
+                Melon<Core>.Logger.Msg(buh.name);
+                return buh;
+            }
+
+            
+            public static void NotHardCodedImageDisplayMethod()
+            {
+                UnityEngine.Texture texture = Melon<Core>.Instance.bundle.LoadAsset<Texture>(Melon<Core>.Instance.image_name);
+                Texture.Instantiate(texture);
+                GUI.DrawTexture(new Rect(0, 0, 1920, 1080), texture);
+                
             }
             
             public static void DoubleClickProtection()
@@ -186,25 +209,41 @@ namespace UPEAddons
                     MelonEvents.OnGUI.Subscribe(Melon<Core>.Instance.DrawImage, 0);
                     Melon<Core>.Logger.Msg("Worked!");
 
-                    // play ytp audio [THIS NEEDS TO BE UPDATED IT IS HARDCODED BECAUSE MANAGEAUDIO(0) WAS BEING FUSSY]
-                    Melon<Core>.Logger.Msg("trying to play second ytp");
-                    //Melon<Core>.Instance.ManageAudio(1, UnityEngine.GameObject.Find("BetaDisclSoundSource(Clone)"), "AFU_UPE_YTP_2");
-                    //Melon<Core>.Instance.ManageAudio(2, UnityEngine.GameObject.Find("BetaDisclSoundSource(Clone)"));
-                    Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus = Melon<Core>.Instance.bundle.LoadAsset<GameObject>("BetaDisclSoundSource1");
-                    //Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus.GetComponent<AudioSource>().clip = Melon<Core>.Instance.bundle.LoadAsset<AudioClip>("AFU_UPE_YTP_2");
-                    Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus.GetComponent<AudioSource>().volume = 0.3F;
-                    GameObject.Instantiate(Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus);
-                    Melon<Core>.Instance.audio_disclaimer_ytp_2_Citrus.GetComponent<AudioSource>().Play();
+
+                    // new, not-hardcoded way of playing the ytp
+                    // collect every currently exisitng ytp audio into an array
+                    UnityEngine.AudioClip[] ytp_array = {AudioLoader("AFU_UPE_YTP_2"), AudioLoader("AFU_UPE_YTP_2_melli")};
+                    // randomly select one of the clips by using the total amount of clips to clamp the rng method
+                    int selected_ytp_id = Melon<Core>.Instance.GetRandomNumberWithinRange(ytp_array.Length);
+                    // pin down the ytp that was selected and put it in a variable
+                    UnityEngine.AudioClip selected_ytp_auidoclip = ytp_array[selected_ytp_id];
+                    // instantiate the gameobject which'll play the ytp audioclip
+                    UnityEngine.GameObject ytp_object = Melon<Core>.Instance.bundle.LoadAsset<GameObject>("BetaDisclSoundSource1");
+                    // swap the default audioclip for the selected on instead
+                    ytp_object.GetComponent<AudioSource>().clip = selected_ytp_auidoclip;
+                    // instantiate the object now that it has been modified before hand
+                    UnityEngine.GameObject.Instantiate(ytp_object);
+                    // play the selected audio clip
+                    Melon<Core>.Instance.ManageAudio(2, ytp_object);
+
+
+                    // no longer hardcoded as well: display the name of who is talking
+                    var dict = new Dictionary<int, string>()
+                    {
+                        {0, "citrus_name"},
+                        {1, "melli_name"}
+                    };
+                    Melon<Core>.Instance.image_name = dict[selected_ytp_id];
+                    MelonEvents.OnGUI.Subscribe(NotHardCodedImageDisplayMethod, 1);
+
+
                     Melon<Core>.Instance.is_second_button_press = true;
 
-                    // display name of person who is talking [ALSO HARDCODED, LACKS FUCNTIONALITY FOR DECIDING WHO IS SPEAKING BECAUSE THERE IS ONLY ONE FILE CURRENTLY]
-                    MelonEvents.OnGUI.Subscribe(SuperDuperHardCodedImageDisplayMethod, 1);
-
                 }
-                else if (Melon<Core>.Instance.double_click_protection_timer > 30)
+                else if (Melon<Core>.Instance.double_click_protection_timer > 20)
                 {
                     MelonEvents.OnGUI.Unsubscribe(Melon<Core>.Instance.DrawImage);
-                    MelonEvents.OnGUI.Unsubscribe(SuperDuperHardCodedImageDisplayMethod);
+                    MelonEvents.OnGUI.Unsubscribe(NotHardCodedImageDisplayMethod);
                     MelonEvents.OnUpdate.Unsubscribe(DoubleClickProtection);
                 }
             }
@@ -387,7 +426,7 @@ namespace UPEAddons
                 //LoggerInstance.Msg("Checking rng...");
                 if (IsEnabled.Value == true)
                 {
-                    CheckRng(Chance.Value);
+                    OneInXChance(Chance.Value);
                     if (y_or_n == true && is_animation_playing == false)
                     {
                         // play noise
